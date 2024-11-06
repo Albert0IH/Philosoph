@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 03:47:45 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/06 04:27:27 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/06 07:37:16 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#define NUM_PHILOS 5
-#define EAT_TIME 2
+#define NUM_PHILOS 15
+#define EAT_TIME 1
 #define SLEEP_TIME 3
 
 pthread_mutex_t	forks[NUM_PHILOS];
