@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 06:51:41 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/06 09:12:57 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/06 09:57:46 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,16 @@ void	*philo(void *arg)
 		if (philo->id % 2 == 0)
 		{
 			pthread_mutex_lock(&philo->forks[left]);
+			printf("Philosopher %d took his left's fork.\n", philo->id);
 			pthread_mutex_lock(&philo->forks[right]);
+			printf("Philosopher %d took his right's fork.\n", philo->id);
 		}
 		else
 		{
 			pthread_mutex_lock(&philo->forks[right]);
+			printf("Philosopher %d took his right's fork.\n", philo->id);
 			pthread_mutex_lock(&philo->forks[left]);
+			printf("Philosopher %d took his left's fork.\n", philo->id);
 		}
 		// ---- eat
 		pthread_mutex_lock(philo->print_mutex);
@@ -58,7 +62,9 @@ void	*philo(void *arg)
 		{
 			pthread_mutex_unlock(philo->print_mutex);
 			pthread_mutex_unlock(&philo->forks[left]);
+			printf("Philosopher %d took his left's fork.\n", philo->id);
 			pthread_mutex_unlock(&philo->forks[right]);
+			printf("Philosopher %d took his right's fork.\n", philo->id);
 			break ;
 		}
 		printf("Philosopher %d is eating.\n", philo->id);
@@ -67,7 +73,9 @@ void	*philo(void *arg)
 		sleep(EAT_TIME);
 		// ---- leave forks
 		pthread_mutex_unlock(&philo->forks[left]);
+		printf("Philosopher %d took his left's fork.\n", philo->id);
 		pthread_mutex_unlock(&philo->forks[right]);
+		printf("Philosopher %d took his right's fork.\n", philo->id);
 		// ---- sleep
 		pthread_mutex_lock(philo->print_mutex);
 		if (!*philo->simulation_active)
@@ -107,7 +115,7 @@ int	main(void)
 	while (i < NUM_PHILOS)
 	{
 		pthread_mutex_init(&forks[i], NULL);
-		philos[i].id = i;
+		philos[i].id = i + 1;
 		philos[i].forks = forks;
 		philos[i].last_meal_time = get_time_ms();
 		philos[i].print_mutex = &print_mutex;

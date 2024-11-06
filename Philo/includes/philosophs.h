@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 06:40:20 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/06 08:34:26 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/06 09:58:18 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <unistd.h>
 
 # define NUM_PHILOS 6
-# define EAT_TIME 2
+# define EAT_TIME 1
 # define SLEEP_TIME 3
 # define MAX_TIME_WITHOUT_EATING 4
 
