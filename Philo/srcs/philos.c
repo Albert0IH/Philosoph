@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 06:51:41 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/06 09:57:46 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/06 11:59:09 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ long	get_time_ms(void)
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000 + tv.tv_usec / 100);
+	return (tv.tv_sec * 100 + tv.tv_usec / 1000);
 }
 /*------------- Philosofer's actions ---------------*/
 void	*philo(void *arg)
@@ -25,73 +25,83 @@ void	*philo(void *arg)
 	t_philo	*philo;
 	int		left;
 	int		right;
+	long	time;
+	long	start_time;
 
 	philo = (t_philo *)arg;
 	left = philo->id;
 	right = (philo->id + 1) % NUM_PHILOS;
+	start_time = get_time_ms();
 	while (*philo->simulation_active)
 	{
-		// ---- think
-		pthread_mutex_lock(philo->print_mutex);
-		if (!*philo->simulation_active)
-		{
-			pthread_mutex_unlock(philo->print_mutex);
-			break ;
-		}
-		printf("Philosopher %d is thinking.\n", philo->id);
-		pthread_mutex_unlock(philo->print_mutex);
-		sleep(1);
 		// ---- take forks
 		if (philo->id % 2 == 0)
 		{
+			time = get_time_ms() - start_time;
 			pthread_mutex_lock(&philo->forks[left]);
-			printf("Philosopher %d took his left's fork.\n", philo->id);
+			printf("%ld %d took his left's fork.\n", time, philo->id);
 			pthread_mutex_lock(&philo->forks[right]);
-			printf("Philosopher %d took his right's fork.\n", philo->id);
+			printf("%ld %d took his right's fork.\n", time, philo->id);
 		}
 		else
 		{
+			time = get_time_ms() - start_time;
 			pthread_mutex_lock(&philo->forks[right]);
-			printf("Philosopher %d took his right's fork.\n", philo->id);
+			printf("%ld %d took his right's fork.\n", time, philo->id);
 			pthread_mutex_lock(&philo->forks[left]);
-			printf("Philosopher %d took his left's fork.\n", philo->id);
+			printf("%ld %d took his left's fork.\n", time, philo->id);
 		}
 		// ---- eat
 		pthread_mutex_lock(philo->print_mutex);
 		if (!*philo->simulation_active)
 		{
+			time = get_time_ms() - start_time;
 			pthread_mutex_unlock(philo->print_mutex);
 			pthread_mutex_unlock(&philo->forks[left]);
-			printf("Philosopher %d took his left's fork.\n", philo->id);
+			printf("%ld %d took his left's fork.\n", time, philo->id);
 			pthread_mutex_unlock(&philo->forks[right]);
-			printf("Philosopher %d took his right's fork.\n", philo->id);
+			printf("%ld %d took his right's fork.\n", time, philo->id);
 			break ;
 		}
-		printf("Philosopher %d is eating.\n", philo->id);
+		printf("%ld %d is eating.\n", time, philo->id);
 		pthread_mutex_unlock(philo->print_mutex);
 		philo->last_meal_time = get_time_ms();
 		sleep(EAT_TIME);
 		// ---- leave forks
+		time = get_time_ms() - start_time;
 		pthread_mutex_unlock(&philo->forks[left]);
-		printf("Philosopher %d took his left's fork.\n", philo->id);
+		printf("%ld %d took his left's fork.\n", time, philo->id);
 		pthread_mutex_unlock(&philo->forks[right]);
-		printf("Philosopher %d took his right's fork.\n", philo->id);
+		printf("%ld %d took his right's fork.\n", time, philo->id);
 		// ---- sleep
+		time = get_time_ms() - start_time;
 		pthread_mutex_lock(philo->print_mutex);
 		if (!*philo->simulation_active)
 		{
 			pthread_mutex_unlock(philo->print_mutex);
 			break ;
 		}
-		printf("Philosopher %d is sleeping.\n", philo->id);
+		printf("%ld %d is sleeping.\n", time, philo->id);
 		pthread_mutex_unlock(philo->print_mutex);
 		sleep(SLEEP_TIME);
+		// ---- think
+		time = get_time_ms() - start_time;
+		pthread_mutex_lock(philo->print_mutex);
+		if (!*philo->simulation_active)
+		{
+			pthread_mutex_unlock(philo->print_mutex);
+			break ;
+		}
+		printf("%ld %d is thinking.\n", time, philo->id);
+		pthread_mutex_unlock(philo->print_mutex);
+		sleep(1);
 		// check if a philos died
+		time = get_time_ms() - start_time;
 		pthread_mutex_lock(philo->print_mutex);
 		if (get_time_ms() - philo->last_meal_time > MAX_TIME_WITHOUT_EATING
 			&& *philo->simulation_active)
 		{
-			printf("Philosopher %d has died.\n", philo->id);
+			printf("%ld %d has died.\n", time, philo->id);
 			*philo->simulation_active = 0;
 		}
 		pthread_mutex_unlock(philo->print_mutex);
