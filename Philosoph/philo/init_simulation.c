@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 16:50:40 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/10 23:50:45 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/11 00:08:04 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,23 @@ void	set_philos(t_philosoph *philos, t_program *program,
 			philos[i].r_fork = &forks[philos[i].number_of_philos - 1];
 		else
 			philos[i].l_fork = &forks[i - 1];
-		//print_philos_info(philos);
+		// print_philos_info(philos);
 		i++;
 	}
 }
+void	init_forks(pthread_mutex_t *forks, int philos_number)
+{
+	int	i;
+
+	i = 0;
+	while (i < philos_number)
+	{
+		pthread_mutex_init(&forks[i], NULL);
+		i++;
+	}
+	// printf("Forks: %d\n", i);
+}
+
 void	init_program(t_program *program, t_philosoph *philos)
 {
 	program->dead_flag = 0;

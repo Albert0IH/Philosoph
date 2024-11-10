@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 17:09:07 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/10 23:37:18 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/11 00:44:05 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	ft_atoi(char *s)
 	return (sig * n);
 }
 
-void	destroy_all(char *s, t_program *program, pthread_mutex_t *forks)
+void	destory_all(char *s, t_program *program, pthread_mutex_t *forks)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 14:36:49 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/10 23:53:33 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/11 00:12:04 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,20 @@ int	check_valid_args(char **av)
 }
 int	main(int ac, char **av)
 {
-	t_program	program;
-	t_philosoph	philos[PHILO_MAX];
+	t_program		program;
+	t_philosoph		philos[PHILO_MAX];
+	pthread_mutex_t	forks[PHILO_MAX];
 
-	// pthread_mutex_t	forks[PHILO_MAX];
 	if (ac != 5 && ac != 6)
 		return (write(2,
 				"Wrong argument count\nTry ./philo [time to die] [time to eat] [time to sleep] [times to each must eat]\n",
 				103), 1);
 	if (check_valid_args(av))
 		return (1);
-	//set_philos(philos, &program, NULL, av);
+	// set_philos(philos, &program, NULL, av);
 	init_program(&program, philos);
+	init_forks(forks, ft_atoi(av[1]));
+	set_philos(philos, &program, forks, av);
+	create_thread(&program, forks);
 	return (0);
 }
