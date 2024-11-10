@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 14:47:06 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/10 18:54:02 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/10 23:45:35 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,52 +35,38 @@ typedef struct s_philosoph
 	int				number_times_to_eat;
 	int				*dead;
 	pthread_t		thread;
-	pthread_mutex_t	*r_forks;
-	pthread_mutex_t	*l_forks;
+	pthread_mutex_t	*r_fork;
+	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*print_lock;
 	pthread_mutex_t	*dead_lock;
 	pthread_mutex_t	*meal_lock;
 }					t_philosoph;
 
-typedef struct s_simulation
+typedef struct s_program
 {
 	int				dead_flag;
 	pthread_mutex_t	dead_lock;
 	pthread_mutex_t	meal_lock;
 	pthread_mutex_t	print_lock;
 	t_philosoph		*philos;
-}					t_simulation;
+}					t_program;
 
 // Check
-int					check_arg_content(char *av);
+int					check_content_arg(char *av);
 int					check_valid_args(char **av);
-int					check_dead(t_philosoph *philo);
-int					philos_dead(t_philosoph *philo, size_t time_to_die);
-// Initialization
-void				init_inputs(t_philosoph *philos, char **av);
-void				init_philos(t_philosoph *philos, t_simulation *simulation,
-						pthread_mutex_t *forks, char **av);
-void				init_forks(pthread_mutex_t *forks, int philo_number);
-void				init_simulation(t_simulation *simulation,
-						t_philosoph *philo);
-void				destroy_all(char *s, t_simulation *simulation,
-						pthread_mutex_t *forks);
 
+// Initialization
+void				take_input(t_philosoph *philos, char **av);
+void				print_philos_info(t_philosoph *philos);
+void				set_philos(t_philosoph *philos, t_program *program,
+						pthread_mutex_t *forks, char **av);
+						void init_program(t_program *program, t_philosoph *philos);
 // Threads
-int					create_thread(t_simulation *simulation,
-						pthread_mutex_t *forks);
 
 // Actions
-void				*philo_routine(void *arg);
-void				thinking(t_philosoph *philo);
-void				sleeping(t_philosoph *philo);
-void				eating(t_philosoph *philo);
 
 // Monitor utils
-void				print_msg(char *s, t_philosoph *philo, int id);
-int					search_death(t_philosoph *philos);
-int					check_if_all_ate(t_philosoph *philos);
-void				*monitor(void *arg);
+
 // Utils
 int					ft_strlen(char *s);
 int					ft_atoi(char *s);

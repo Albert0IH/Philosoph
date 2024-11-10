@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 17:09:07 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/10 19:03:06 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/10 23:37:18 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	ft_atoi(char *s)
 	return (sig * n);
 }
 
-void	destroy_all(char *s, t_simulation *simulation, pthread_mutex_t *forks)
+void	destroy_all(char *s, t_program *program, pthread_mutex_t *forks)
 {
 	int	i;
 
@@ -60,10 +60,10 @@ void	destroy_all(char *s, t_simulation *simulation, pthread_mutex_t *forks)
 		write(2, s, ft_strlen(s));
 		write(2, "\n", 1);
 	}
-	pthread_mutex_destroy(&simulation->print_lock);
-	pthread_mutex_destroy(&simulation->meal_lock);
-	pthread_mutex_destroy(&simulation->dead_lock);
-	while (i < simulation->philos[0].number_of_philos)
+	pthread_mutex_destroy(&program->print_lock);
+	pthread_mutex_destroy(&program->meal_lock);
+	pthread_mutex_destroy(&program->dead_lock);
+	while (i < program->philos[0].number_of_philos)
 	{
 		pthread_mutex_destroy(&forks[i]);
 		i++;
