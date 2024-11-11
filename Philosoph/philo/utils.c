@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 17:09:07 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/11 00:44:05 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/11 04:44:36 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	destory_all(char *s, t_program *program, pthread_mutex_t *forks)
 		write(2, s, ft_strlen(s));
 		write(2, "\n", 1);
 	}
-	pthread_mutex_destroy(&program->print_lock);
+	pthread_mutex_destroy(&program->write_lock);
 	pthread_mutex_destroy(&program->meal_lock);
 	pthread_mutex_destroy(&program->dead_lock);
 	while (i < program->philos[0].number_of_philos)
