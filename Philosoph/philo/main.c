@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 14:36:49 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/11 03:24:24 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/11 06:14:40 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,9 @@ int	main(int ac, char **av)
 	set_philos(philos, &program, forks, av);
 	create_thread(&program, forks);
 	destory_all(NULL, &program, forks);
+	// printf("Number of Philosophers: %d\n", program.philos[0].number_of_philos);
+	// printf("Philos array address: %p\n", (void *)program.philos);
+	// free(philos);
+	// free(forks);
 	return (0);
 }

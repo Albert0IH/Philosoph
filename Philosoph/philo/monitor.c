@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 18:25:02 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/11 03:25:59 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/11 06:44:29 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,32 @@ int	check_death(t_philosoph *philos)
 	return (0);
 }
 
+// int	check_if_all_ate(t_philosoph *philos)
+// {
+// 	int	i;
+// 	int	finished;
+
+// 	i = 0;
+// 	finished = 0;
+// 	if (philos[0].number_times_to_eat == -1)
+// 		return (0);
+// 	while (i < philos[0].number_of_philos)
+// 	{
+// 		pthread_mutex_lock(philos[i].meal_lock);
+// 		if (philos[i].meals_eaten >= philos[i].number_times_to_eat)
+// 			finished++;
+// 		pthread_mutex_unlock(philos[i].meal_lock);
+// 		i++;
+// 	}
+// 	if (finished == philos[0].number_of_philos)
+// 	{
+// 		pthread_mutex_lock(philos[0].dead_lock);  // Corrigido para philos[0]
+// 		*philos[0].dead = 1;                     // Corrigido para philos[0]
+// 		pthread_mutex_unlock(philos[0].dead_lock); // Corrigido para philos[0]
+// 		return (1);
+// 	}
+// 	return (0);
+// }
 int	check_if_all_ate(t_philosoph *philos)
 {
 	int	i;
@@ -72,9 +98,10 @@ int	check_if_all_ate(t_philosoph *philos)
 	}
 	if (finished == philos[0].number_of_philos)
 	{
-		pthread_mutex_lock(philos[i].dead_lock);
+		pthread_mutex_lock(philos[0].dead_lock);
 		*philos->dead = 1;
-		pthread_mutex_unlock(philos[i].dead_lock);
+		pthread_mutex_unlock(philos[0].dead_lock);
+		
 		return (1);
 	}
 	return (0);

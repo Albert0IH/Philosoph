@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 17:54:47 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/11 02:47:19 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/11 06:45:36 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void	*philos_rotine(void *arg)
 		ft_usleep(1);
 	while (!philo_dead(philo))
 	{
-		thinking(philo);
-		sleeping(philo);
 		eating(philo);
+		sleeping(philo);
+		thinking(philo);
 	}
 	return (arg);
 }
@@ -95,5 +95,6 @@ int	create_thread(t_program *program, pthread_mutex_t *forks)
 			destory_all("Failed to join philo's thread", program, forks);
 		i++;
 	}
+	//printf("Aqui4!\n");
 	return (0);
 }
