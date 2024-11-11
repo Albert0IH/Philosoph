@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 14:47:06 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/11 00:45:03 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/11 03:26:14 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_philosoph
 	pthread_t		thread;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
-	pthread_mutex_t	*print_lock;
+	pthread_mutex_t	*write_lock;
 	pthread_mutex_t	*dead_lock;
 	pthread_mutex_t	*meal_lock;
 }					t_philosoph;
@@ -47,7 +47,7 @@ typedef struct s_program
 	int				dead_flag;
 	pthread_mutex_t	dead_lock;
 	pthread_mutex_t	meal_lock;
-	pthread_mutex_t	print_lock;
+	pthread_mutex_t	write_lock;
 	t_philosoph		*philos;
 }					t_program;
 
@@ -57,7 +57,6 @@ int					check_valid_args(char **av);
 
 // Initialization
 void				take_input(t_philosoph *philos, char **av);
-void				print_philos_info(t_philosoph *philos);
 void				set_philos(t_philosoph *philos, t_program *program,
 						pthread_mutex_t *forks, char **av);
 void				init_program(t_program *program, t_philosoph *philos);
@@ -67,9 +66,16 @@ int					philo_dead(t_philosoph *philo);
 void				*philos_rotine(void *arg);
 int					create_thread(t_program *program, pthread_mutex_t *forks);
 // Actions
-
+void				thinking(t_philosoph *philo);
+void				sleeping(t_philosoph *philo);
+void				eating(t_philosoph *philo);
+void				print_msg(char *s, t_philosoph *philo, int id);
 // Monitor utils
-
+void				print_msg(char *s, t_philosoph *philo, int id);
+int					kill_philo(t_philosoph *philo, size_t time_to_die);
+int					check_death(t_philosoph *philos);
+int					check_if_all_ate(t_philosoph *philos);
+void				*monitor(void *arg);
 // Utils
 int					ft_strlen(char *s);
 int					ft_atoi(char *s);

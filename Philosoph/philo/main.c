@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 14:36:49 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/11 00:12:04 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/11 03:24:24 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	check_valid_args(char **av)
 		return (write(2, "Invalid time to die\n", 21), 1);
 	if (ft_atoi(av[3]) <= 0 || check_content_arg(av[3]))
 		return (write(2, "Invalid time to eat\n", 21), 1);
-	if (ft_atoi(av[4]) <= 0 || check_content_arg(av[3]))
+	if (ft_atoi(av[4]) <= 0 || check_content_arg(av[4]))
 		return (write(2, "Invalid time to sleep\n", 23), 1);
 	if (av[5] && (ft_atoi(av[5]) <= 0 || check_content_arg(av[5])))
 		return (write(2, "Invalid number of times each philosopher must eat\n",
@@ -53,10 +53,10 @@ int	main(int ac, char **av)
 				103), 1);
 	if (check_valid_args(av))
 		return (1);
-	// set_philos(philos, &program, NULL, av);
 	init_program(&program, philos);
 	init_forks(forks, ft_atoi(av[1]));
 	set_philos(philos, &program, forks, av);
 	create_thread(&program, forks);
+	destory_all(NULL, &program, forks);
 	return (0);
 }
