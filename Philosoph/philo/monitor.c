@@ -99,7 +99,7 @@ int	check_if_all_ate(t_philosoph *philos)
 	if (finished == philos[0].number_of_philos)
 	{
 		pthread_mutex_lock(philos[0].dead_lock);
-		*philos->dead = 1;
+		*philos[0].dead = 1;
 		pthread_mutex_unlock(philos[0].dead_lock);
 		
 		return (1);
