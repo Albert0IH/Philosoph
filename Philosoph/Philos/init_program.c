@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:46:09 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/13 08:48:05 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:06:54 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	take_imput_values(t_philosopher *philos, char **av)
 	philos->time_to_die = ft_atoi(av[2]);
 	philos->time_to_eat = ft_atoi(av[3]);
 	philos->time_to_sleep = ft_atoi(av[4]);
-	if (av[5])
-		philos->number_time_to_eat = ft_atoi(av[5]);
-	else
-		philos->number_of_philos = -1;
+	// if (av[5])
+	// 	philos->number_time_to_eat = ft_atoi(av[5]);
+	// else
+	// 	philos->number_of_philos = -1;
 }
 
 void	set_philos(t_philosopher *philos, t_program *program,

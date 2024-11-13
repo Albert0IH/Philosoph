@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 13:36:57 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/13 12:27:19 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:06:25 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	main(int ac, char **av)
 	init_forks(forks, ft_atoi(av[1]));
 	set_philos(philos, &program, forks, av);
 	create_threads(&program, forks);
-		// destory all
+	// printf("Aqui!\n");
+	// 	// destory all
 	return (0);
 }

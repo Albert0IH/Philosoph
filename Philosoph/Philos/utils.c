@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 13:53:50 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/12 16:01:56 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:18:09 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,15 @@ int	ft_atoi(char *s)
 		i++;
 	}
 	return (sig * n);
+}
+
+int ft_usleep(size_t milissec)
+{
+	size_t start;
+	start = get_current_time();
+	while ((get_current_time() - start) < milissec)
+		usleep(500);
+	return (0);
 }
 
 size_t	get_current_time(void)

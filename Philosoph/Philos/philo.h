@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 14:47:06 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/13 12:22:39 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:34:49 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_philosopher
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*print_lock;
-	pthread_mutex_t	*deaf_lock;
+	pthread_mutex_t	*dead_lock;
 	pthread_mutex_t	*meal_lock;
 	pthread_t		thread;
 }					t_philosopher;
@@ -55,7 +55,7 @@ typedef struct s_program
 int					ft_strlen(char *s);
 int					ft_atoi(char *s);
 size_t				get_current_time(void);
-
+int					ft_usleep(size_t milissec);
 // Checking
 int					invalid_arg(char *av);
 int					check_inputs(int ac, char **av);
@@ -66,8 +66,8 @@ void				set_philos(t_philosopher *philos, t_program *program,
 void				init_forks(pthread_mutex_t *forks, int number_philos);
 void				init_program(t_program *program, t_philosopher *philos);
 // Threads
-
-void				*routine();
+void				*routine(void *pointer);
 int					create_threads(t_program *program, pthread_mutex_t *fork);
+int					philo_dead(t_philosopher *philo);
 
 #endif
