@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 14:47:06 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/13 17:34:49 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/13 18:51:36 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,17 @@ void				init_program(t_program *program, t_philosopher *philos);
 void				*routine(void *pointer);
 int					create_threads(t_program *program, pthread_mutex_t *fork);
 int					philo_dead(t_philosopher *philo);
+void				destory_all(char *s, t_program *program,
+						pthread_mutex_t *forks);
+// Routine
+void				thinking(t_philosopher *philo);
+void				sleeping(t_philosopher *philo);
+void				eating(t_philosopher *philo);
+
+// Monitor
+void				print_msg(char *s, t_philosopher *philo, int id);
+int					kill_philo(t_philosopher *philo, size_t time_to_die);
+int					check_death(t_philosopher *philos);
+void				*monitor(void *pointer);
 
 #endif

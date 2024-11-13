@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:46:09 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/13 17:06:54 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:46:22 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	set_philos(t_philosopher *philos, t_program *program,
 		philos[i].start_time = get_current_time();
 		philos[i].last_meal = get_current_time();
 		philos[i].print_lock = &program->print_lock;
-		philos[i].deaf_lock = &program->dead_lock;
+		philos[i].dead_lock = &program->dead_lock;
 		philos[i].meal_lock = &program->meal_lock;
 		philos[i].dead = &program->dead_flag;
 		philos[i].l_fork = &forks[i];

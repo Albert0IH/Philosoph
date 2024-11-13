@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:21:09 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/13 17:39:43 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/13 18:51:01 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,44 +24,40 @@ int	philo_dead(t_philosopher *philo)
 void	*routine(void *pointer)
 {
 	t_philosopher	*philo;
-	pthread_mutex_t	mutex;
 
 	philo = (t_philosopher *)pointer;
-	// pthread_mutex_lock(&mutex);
-	// printf("philo [%d]\n", philo->id);
-	// pthread_mutex_unlock(&mutex);
+	if (philo->id % 2 == 0)
+		ft_usleep(1);
 	while (!philo_dead(philo))
 	{
-		pthread_mutex_lock(&mutex);
-		printf("philo [%d]\n", philo->id);
-		pthread_mutex_unlock(&mutex);
-		// eat
-		// esleep
-		// think
+		eating(philo);
+		sleeping(philo);
+		thinking(philo);
 	}
 	return (pointer);
 }
 
 int	create_threads(t_program *program, pthread_mutex_t *forks)
 {
-	int	i;
+	pthread_t	watcher;
+	int			i;
 
-	pthread_mutex_init(forks, NULL);
+	if (pthread_create(&watcher, NULL, &monitor, program->philos))
+		destory_all("failed to create philos", program, forks);
 	i = 0;
 	while (i < program->philos[0].number_of_philos)
 	{
 		if (pthread_create(&program->philos[i].thread, NULL, &routine,
 				&program->philos[i]))
-			printf("Failed to create Philo [%d]", program->philos[i].id);
+			destory_all("failed to create philos", program, forks);
 		i++;
 	}
 	i = 0;
 	while (i < program->philos[0].number_of_philos)
 	{
 		if (pthread_join(program->philos[i].thread, NULL))
-			printf("Failed to join Philo [%d]", program->philos[i].id);
+			destory_all("failed to join philos", program, forks);
 		i++;
 	}
-	pthread_mutex_destroy(forks);
 	return (0);
 }

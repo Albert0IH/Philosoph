@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 13:53:50 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/13 17:18:09 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/13 18:45:01 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,10 @@ int	ft_atoi(char *s)
 	return (sig * n);
 }
 
-int ft_usleep(size_t milissec)
+int	ft_usleep(size_t milissec)
 {
-	size_t start;
+	size_t	start;
+
 	start = get_current_time();
 	while ((get_current_time() - start) < milissec)
 		usleep(500);
@@ -66,4 +67,25 @@ size_t	get_current_time(void)
 	if (gettimeofday(&time, NULL) == -1)
 		write(2, "Error: gettimeofday()\n", 22);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}
+
+void	destory_all(char *s, t_program *program, pthread_mutex_t *forks)
+{
+	int	i;
+
+	i = 0;
+	if (s)
+	{
+		write(2, s, ft_strlen(s));
+		write(2, "\n", 1);
+	}
+	pthread_mutex_destroy(&program->print_lock);
+	pthread_mutex_destroy(&program->meal_lock);
+	pthread_mutex_destroy(&program->dead_lock);
+	while (i < program->philos[0].number_of_philos)
+	{
+		pthread_mutex_destroy(&forks[i]);
+		i++;
+	}
+	
 }
