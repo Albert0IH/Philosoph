@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 14:47:06 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/11 05:29:44 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/14 13:05:49 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int					ft_atoi(char *s);
 int					ft_usleep(size_t milissec);
 size_t				get_current_time(void);
 
-void					destory_all(char *s, t_program *program,
+void				destory_all(char *s, t_program *program,
 						pthread_mutex_t *forks);
 
 #endif

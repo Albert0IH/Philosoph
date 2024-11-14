@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 16:50:40 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/13 08:47:54 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/14 12:51:21 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	set_philos(t_philosoph *philos, t_program *program,
 	i = 0;
 	while (i < ft_atoi(av[1]))
 	{
-		// teu erro, cão! \take_input(philos, av)/
 		take_input(&philos[i], av);
 		philos[i].id = i + 1;
 		philos[i].eating = 0;

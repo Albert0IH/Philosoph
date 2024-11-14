@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 14:36:49 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/11 06:14:40 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/14 13:02:02 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	check_content_arg(char *av)
 	}
 	return (0);
 }
+
 int	check_valid_args(char **av)
 {
 	if (ft_atoi(av[1]) > PHILO_MAX || ft_atoi(av[1]) <= 0
@@ -41,6 +42,7 @@ int	check_valid_args(char **av)
 				51), 1);
 	return (0);
 }
+
 int	main(int ac, char **av)
 {
 	t_program		program;
@@ -48,9 +50,8 @@ int	main(int ac, char **av)
 	pthread_mutex_t	forks[PHILO_MAX];
 
 	if (ac != 5 && ac != 6)
-		return (write(2,
-				"Wrong argument count\nTry ./philo [time to die] [time to eat] [time to sleep] [times to each must eat]\n",
-				103), 1);
+		return (write(2, "./philo [death] [meal] [spleep] [number of meals]\n",
+				51), 1);
 	if (check_valid_args(av))
 		return (1);
 	init_program(&program, philos);
@@ -58,9 +59,5 @@ int	main(int ac, char **av)
 	set_philos(philos, &program, forks, av);
 	create_thread(&program, forks);
 	destory_all(NULL, &program, forks);
-	// printf("Number of Philosophers: %d\n", program.philos[0].number_of_philos);
-	// printf("Philos array address: %p\n", (void *)program.philos);
-	// free(philos);
-	// free(forks);
 	return (0);
 }
