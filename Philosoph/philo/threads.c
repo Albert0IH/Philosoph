@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 17:54:47 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/13 19:01:09 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/15 14:55:10 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	*philos_rotine(void *arg)
 		ft_usleep(1);
 	while (!philo_dead(philo))
 	{
+		take_forks(philo);
 		eating(philo);
 		sleeping(philo);
 		thinking(philo);
@@ -43,23 +44,42 @@ int	create_thread(t_program *program, pthread_mutex_t *forks)
 	int			i;
 
 	if (pthread_create(&watcher, NULL, &monitor, program->philos))
-		destory_all("Failed to create watche'r thread", program, forks);
+		destroy_all("Failed to create watche'r thread", program, forks);
 	i = 0;
 	while (i < program->philos[0].number_of_philos)
 	{
 		if (pthread_create(&program->philos[i].thread, NULL, &philos_rotine,
 				&program->philos[i]))
-			destory_all("Failed to create philo's thread", program, forks);
+			destroy_all("Failed to create philo's thread", program, forks);
 		i++;
 	}
 	i = 0;
 	if (pthread_join(watcher, NULL))
-		destory_all("Failed to join watcher's thread", program, forks);
+		destroy_all("Failed to join watcher's thread", program, forks);
 	while (i < program->philos[0].number_of_philos)
 	{
 		if (pthread_join(program->philos[i].thread, NULL))
-			destory_all("Failed to join philo's thread", program, forks);
+			destroy_all("Failed to join philo's thread", program, forks);
 		i++;
 	}
+	return (0);
+}
+
+size_t	get_current_time(void)
+{
+	struct timeval	time;
+
+	if (gettimeofday(&time, NULL) == -1)
+		write(2, "gettimeofday() error\n", 22);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}
+
+int	ft_usleep(size_t milissec)
+{
+	size_t	start;
+
+	start = get_current_time();
+	while ((get_current_time() - start) < milissec)
+		usleep(1000);
 	return (0);
 }

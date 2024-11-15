@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 16:50:40 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/14 12:51:21 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/15 14:54:29 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,24 @@ void	init_program(t_program *program, t_philosoph *philos)
 	pthread_mutex_init(&program->write_lock, NULL);
 	pthread_mutex_init(&program->dead_lock, NULL);
 	pthread_mutex_init(&program->meal_lock, NULL);
+}
+
+void	destroy_all(char *s, t_program *program, pthread_mutex_t *forks)
+{
+	int	i;
+
+	i = 0;
+	if (s)
+	{
+		write(2, s, ft_strlen(s));
+		write(2, "\n", 1);
+	}
+	pthread_mutex_destroy(&program->write_lock);
+	pthread_mutex_destroy(&program->meal_lock);
+	pthread_mutex_destroy(&program->dead_lock);
+	while (i < program->philos[0].number_of_philos)
+	{
+		pthread_mutex_destroy(&forks[i]);
+		i++;
+	}
 }

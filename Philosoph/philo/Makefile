@@ -6,7 +6,7 @@
 #    By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/10 14:38:26 by ahamuyel          #+#    #+#              #
-#    Updated: 2024/11/10 18:43:04 by ahamuyel         ###   ########.fr        #
+#    Updated: 2024/11/15 14:55:53 by ahamuyel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,7 @@ SRCS = 	main.c \
 		init_simulation.c \
 		threads.c \
 		monitor.c \
-		routine.c \
-		utils.c
+		routine.c
 OBJS = $(SRCS:%.c=%.o)
 
 all: $(NAME)
