@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 18:13:52 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/21 10:42:01 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/27 18:52:06 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@ void	take_forks(t_philosoph *philo)
 {
 	if (philo->number_of_philos == 1)
 	{
+		pthread_mutex_lock(philo->r_fork);
+		print_msg("has taken a fork", philo, philo->id);
 		ft_usleep(philo->time_to_die, philo);
-		pthread_mutex_unlock(philo->r_fork);
 		return ;
 	}
 	if (philo->number_of_philos % 2 != 0)
